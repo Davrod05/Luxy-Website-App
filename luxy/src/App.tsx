@@ -67,7 +67,7 @@ Est. Price: ${"$" + price.toFixed(2)}`;
       <div className="min-h-screen bg-black/95 flex flex-col items-center justify-start">
         <Header></Header>
 
-        <section className="bg-[linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(/src/media/mapbg.jpeg)] bg-no-repeat bg-center bg-cover w-full text-center pb-10">
+        <section className="bg-[linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(/public/media/mapbg.jpeg)] bg-no-repeat bg-center bg-cover w-full text-center pb-10">
           <h2 className="py-4 text-white font-bold text-xl uppercase text-shadow-sm text-shadow-black">
             Set trip details
           </h2>
@@ -102,7 +102,7 @@ Est. Price: ${"$" + price.toFixed(2)}`;
         <section>
           <div className="w-full py-10">
             <img
-              src="/src/media/2026-suburban-ck10906-3lz-g6m-trimselector.avif"
+              src="public\media\2026-suburban-ck10906-3lz-g6m-trimselector.avif"
               alt="car_img"
               className="h-40"
             />
