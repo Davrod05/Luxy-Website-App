@@ -20,6 +20,9 @@ interface Props {
   price: number;
   setPrice: (value: number) => void;
 
+  time: string;
+  setTime: (value: string) => void;
+
   autoScroll: () => void;
 }
 
@@ -34,6 +37,8 @@ const BookingCard = ({
   setDuration,
   setPrice,
   autoScroll,
+  time,
+  setTime,
 }: Props) => {
   const [pickAutocomplete, setPickAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
@@ -56,6 +61,12 @@ const BookingCard = ({
   const calculateResult = async () => {
     const url = "https://routes.googleapis.com/directions/v2:computeRoutes";
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+    const selectedDateTime = new Date(`${date}T${time}`);
+    if (selectedDateTime < new Date()) {
+      alert("Please select a date and time in the future.");
+      return;
+    }
 
     const requestBody = {
       origin: { address: pickup },
@@ -157,7 +168,7 @@ const BookingCard = ({
           </div>
         </div>
         {/*BOTTOM ROW: Date & Action*/}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-9 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-9 items-end">
           {/*Group 3: Date*/}
           <div className="flex flex-col space-y-3 items-center">
             <label className="text-white text-xs uppercase tracking-widest font-bold ml-1">
@@ -173,12 +184,26 @@ const BookingCard = ({
               className="bg-black/30 border border-white/30 p-4 rounded-xl outline-none w-74 md:w-full focus:border-white transition-all scheme-dark text-white/30 [&.has-value]:text-white [&::-webkit-calendar-picker-indicator]:opacity-30"
             />
           </div>
+          <div className="flex flex-col space-y-3 items-center">
+            <label className="text-white text-xs uppercase tracking-widest font-bold ml-1">
+              Departure Time
+            </label>
+            <input
+              value={time}
+              type="time"
+              onChange={(e) => {
+                setTime(e.target.value);
+                e.target.classList.toggle("has-value", !!e.target.value);
+              }}
+              className="bg-black/30 border border-white/30 p-4 rounded-xl outline-none w-74 md:w-full focus:border-white transition-all scheme-dark text-white/30 [&.has-value]:text-white [&::-webkit-calendar-picker-indicator]:opacity-30"
+            />
+          </div>
           {/* The Button */}
           <button
             className="bg-gray-300 text-black font-bold py-4 rounded-xl uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-white-300/10 hover:scale-105"
             onClick={() => {
-              if (!pickup || !destination || !date) {
-                alert("Please select both locations and a date");
+              if (!pickup || !destination || !date || !time) {
+                alert("Please select both locations, date and time.");
                 return;
               } else {
                 calculateResult();

@@ -11,6 +11,7 @@ const App = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   const [distanceMeters, setDistanceMeters] = useState(0);
   const [duration, setDuration] = useState("0");
@@ -32,6 +33,15 @@ const App = () => {
       return;
     }
 
+    const formatTo12Hour = (time24: string) => {
+      if (!time24) return "";
+      const [hourString, minuteString] = time24.split(":");
+      const hour = parseInt(hourString);
+      const ampm = hour >= 12 ? "PM" : "AM";
+      const formattedHour = hour % 12 || 12;
+      return `${formattedHour}:${minuteString} ${ampm}`;
+    };
+
     const phoneNumber = "(732)801-3341";
     const message = `Luxy Transportation ride request:
 \nProvided Name: ${name}
@@ -40,7 +50,9 @@ const App = () => {
 Destination: ${destination}
   
 \nDate: ${date}
-Distance: ${(distanceMeters * 0.000621371192).toFixed(2) + " Miles"}
+Time: ${formatTo12Hour(time)}
+
+\nDistance: ${(distanceMeters * 0.000621371192).toFixed(2) + " Miles"}
 Time: ${Math.round(parseInt(duration.replace("s", "")) / 60) + " Minutes"}
 Est. Price: ${"$" + price.toFixed(2)}`;
     const encodedMessage = encodeURIComponent(message);
@@ -73,6 +85,8 @@ Est. Price: ${"$" + price.toFixed(2)}`;
               setDuration={setDuration}
               price={price}
               setPrice={setPrice}
+              time={time}
+              setTime={setTime}
               autoScroll={autoScroll}
             ></BookingCard>
           </div>
