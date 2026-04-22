@@ -42,7 +42,7 @@ const App = () => {
       return `${formattedHour}:${minuteString} ${ampm}`;
     };
 
-    const phoneNumber = "(732)801-3341";
+    const phoneNumber = import.meta.env.VITE_PHONE_NUMBER;
     const message = `Luxy Transportation ride request:
 \nProvided Name: ${name}
   
