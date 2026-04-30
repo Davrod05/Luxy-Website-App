@@ -3,6 +3,9 @@ A trip price calculator and booking website for a private limousine service. It 
 
 Tech Stack
 Framework: React & TypeScript
+
 Styling: Tailwind CSS
+
 APIs: Google Places & Routes API
+
 Deployment: Netlify
