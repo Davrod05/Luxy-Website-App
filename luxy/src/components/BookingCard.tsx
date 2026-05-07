@@ -116,7 +116,7 @@ const BookingCard = ({
   };
 
   const processPricing = (distanceMeters: number, totalTolls: number) => {
-    let price = 10 + (distanceMeters / 1609) * 3 + totalTolls;
+    let price = 10 + (distanceMeters / 1609) * 3.75 + totalTolls;
     if (price < 15) {
       price = 15;
     }
